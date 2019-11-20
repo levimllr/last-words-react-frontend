@@ -6,6 +6,10 @@ import WordInfo from "./WordInfo";
 
 class GamePage extends React.Component {
 
+  showScores =  () => console.log("HIGH SCORES!!!");
+
+  newGame = () => console.log("NEW GAME!!!");
+
   render() {
 
     return (
@@ -13,8 +17,8 @@ class GamePage extends React.Component {
         <div>
           <GameInfo/>
           <Definition/>
-          <Button/>
-          <Button/>
+          <Button btnTxt={"High Scores"} clickAction={this.showScores}/>
+          <Button btnTxt={"New Game"} clickAction={this.newGame}/>
         </div>
         <div>
           <WordInfo/>

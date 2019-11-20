@@ -5,10 +5,6 @@ import Stat from "../components/Stat";
 
 class WordInfo extends React.Component {
 
-  showScores =  () => console.log("HIGH SCORES!!!");
-
-  newGame = () => console.log("NEW GAME!!!");
-
   render() {
 
     return (
@@ -16,8 +12,8 @@ class WordInfo extends React.Component {
         <h1>WordInfo</h1>
         <Hangman/>
         <WordScreen/>
-        <Stat btnTxt={"High Scores"} clickAction={this.showScores}/>
-        <Stat btnText={"New Game"} clickAction={this.newGame}/>
+        <Stat statName={"Hits"} condition={true}/>
+        <Stat statName={"Misses"} condition={false}/>
       </div>
     );
   };
