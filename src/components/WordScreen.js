@@ -3,7 +3,10 @@ import React from "react";
 const WordScreen  = props => {
 
   return (
-    <h2>WordScreen</h2>
+    <div>
+      <h2>Word</h2>
+      <p>{props.status}</p>
+    </div>
   );
 };
 

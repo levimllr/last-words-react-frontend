@@ -3,7 +3,10 @@ import React from "react";
 const Definition  = props => {
 
   return (
-    <h2>Definition</h2>
+    <div>
+      <h3>Definition</h3>
+      <p>{props.text}</p>
+    </div>
   );
 };
 
