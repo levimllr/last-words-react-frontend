@@ -36,6 +36,22 @@ class GamePage extends React.Component {
     this.setState({allWords: allWords, currentWord: currentWord});
   };
 
+  handleLoss = () => {
+    console.log("You lose.")
+    let allWords = this.state.allWords;
+    let currentWord = allWords.pop();
+    this.setState({allWords: allWords, currentWord: currentWord});
+  };
+
+  handleWin = () =>  {
+    console.log("You win!")
+    let gameWords = this.state.gameWords;
+    gameWords.push(this.state.currentWord);
+    let allWords = this.state.allWords;
+    let currentWord = allWords.pop();
+    this.setState({allWords: allWords, gameWords: gameWords, currentWord: currentWord});
+  };
+
   render() {
 
     let definition = Object.keys(this.state.currentWord).length === 0 ? <br></br> : (this.state.currentWord.major_class + "  " + this.state.currentWord.definition);
@@ -49,7 +65,7 @@ class GamePage extends React.Component {
           <Button btnTxt={"New Game"} clickAction={this.newGame}/>
         </div>
         <div>
-          <WordInfo word={this.state.currentWord} />
+          <WordInfo word={this.state.currentWord} handleLoss={this.handleLoss} handleWin={this.handleWin} />
         </div>
       </div>
     );

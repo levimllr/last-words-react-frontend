@@ -69,6 +69,10 @@ class WordInfo extends React.Component {
       misses.push(char);
       this.setState({misses: misses});
     };
+    if (misses.length === 6) {
+      this.props.handleLoss();
+      return;
+    };
   };
 
   revealScreen(char) {
@@ -80,6 +84,9 @@ class WordInfo extends React.Component {
       };
     };
     this.setState({wordScreen: wordScreen});
+    if (this.state.wordArray.join("") === this.state.wordScreen.join("")) {
+      this.props.handleWin();
+    };
   };
 
   render() {
