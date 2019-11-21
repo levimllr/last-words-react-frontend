@@ -60,13 +60,32 @@ class GamePage extends React.Component {
     console.log("You lose.")
   };
 
-  handleWin = () =>  {
-    console.log("You win!")
+  calculateScore = (word, misses) => {
+    let score = word.points + word.name.length - (2 * misses.length);
+    return score;
+  };
+
+  handleWin = (misses) =>  {
+    console.log("You win!");
+    let wordScore = this.calculateScore(this.state.currentWord, misses);
+    console.log(`Score: ${wordScore}`);
+    let gameWord = {
+      game_id: null,
+      word_id: this.state.currentWord.id,
+      word: this.state.currentWord.name,
+      misses: misses.join(""),
+      win: true,
+      score: wordScore
+    };
     let gameWords = this.state.gameWords;
-    gameWords.push(this.state.currentWord);
+    gameWords.push(gameWord);
     let allWords = this.state.allWords;
     let currentWord = allWords.pop();
-    this.setState({allWords: allWords, gameWords: gameWords, currentWord: currentWord});
+    this.setState({
+      allWords: allWords, 
+      gameWords: gameWords, 
+      currentWord: currentWord
+    });
   };
 
   render() {

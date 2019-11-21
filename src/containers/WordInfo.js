@@ -101,7 +101,7 @@ class WordInfo extends React.Component {
     };
     this.setState({wordScreen: wordScreen});
     if (this.state.wordArray.join("") === this.state.wordScreen.join("")) {
-      this.props.handleWin();
+      this.props.handleWin(this.state.misses);
     };
   };
 
