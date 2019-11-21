@@ -3,11 +3,23 @@ import Hangman from "../components/Hangman";
 import WordScreen from "../components/WordScreen";
 import Stat from "../components/Stat";
 
-class WordInfo extends React.Component {
-  constructor(props) {
-    super(props);
-  };
+function isLetter(c) {
+  return c.toLowerCase() !== c.toUpperCase();
+};
 
+function createWordScreen(wordArray) {
+  let wordScreen = [];
+  wordArray.forEach((character) => {
+      if (isLetter(character)) {
+          wordScreen.push('_');
+      } else {
+          wordScreen.push(character);
+      }
+  });
+  return wordScreen;
+};
+
+class WordInfo extends React.Component {
   state = {
     wordScreen: [],
     wordArray: [],
@@ -18,24 +30,28 @@ class WordInfo extends React.Component {
 
   componentDidMount() {
     this.handleAttempt = this.handleAttempt.bind(this);
-    window.addEventListener('keypress', this.handleAttempt);
   };
 
   componentDidUpdate() {
-    if (Object.keys(this.props.word).length !== 0 && this.props.word.name.length  !== this.state.wordScreen.length ) {
-      let wordLength = this.props.word.name.length;
-      let wordScreen = Array(wordLength).fill("_");
+    if (Object.keys(this.props.word).length !== 0 && this.props.word.name !== this.state.wordArray.join("") ) {
       let wordArray = this.props.word.name.split("");
-      this.setState({wordScreen: wordScreen, wordArray: wordArray});
+      let wordScreen = createWordScreen(wordArray);
+      window.addEventListener('keypress', this.handleAttempt);
+      this.setState({
+        wordScreen: wordScreen, 
+        wordArray: wordArray,
+        hits: [],
+        misses: [],
+        wordDone: false
+      });
     };
   };
 
   handleAttempt(event) {
     let char = event.key.toLowerCase();
-    console.log(char);
 
     // ignore the return key
-    if (event.keyCode == 13) {
+    if (event.keyCode === 13) {
       return
     };
 
@@ -70,7 +86,7 @@ class WordInfo extends React.Component {
       this.setState({misses: misses});
     };
     if (misses.length === 6) {
-      this.props.handleLoss();
+      window.removeEventListener('keypress', this.handleAttempt);
       return;
     };
   };

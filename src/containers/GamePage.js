@@ -7,19 +7,21 @@ import WordInfo from "./WordInfo";
 const domain = 'http://localhost:3000';
 // const domain = 'https://last-words-on-rails.herokuapp.com';
 
+let wordResource = '/words/random';
+let scoreResource = '/games/high_scores';
+let wordUrl = domain + wordResource;
+let scoreUrl = domain  + scoreResource;
+
 class GamePage extends React.Component {
   state = {
     allWords: [],
     gameWords: [],
     currentWord: {},
-    highScores: []
+    highScores: [],
+    gameOver: true
   };
 
-  componentDidMount() {
-    let wordResource = '/words/random';
-    let scoreResource = '/games/high_scores';
-    let wordUrl = domain + wordResource;
-    let scoreUrl = domain  + scoreResource;
+  fetchAll() {
     fetch(wordUrl)
       .then(resp => resp.json())
       .then(json => this.setState({allWords: json}));
@@ -28,19 +30,34 @@ class GamePage extends React.Component {
       .then(json => this.setState({highScores: json}));
   };
 
+  componentDidMount() {
+    this.fetchAll();
+  };
+
+  componentDidUpdate() {
+    if (this.state.gameOver === true) {
+      console.log("Fetching!!");
+      this.fetchAll();
+      this.setState({gameOver: false});
+    };
+  };
+
   showScores =  () => console.log("HIGH SCORES!!!");
 
   newGame = () => {
+    this.setState({
+      gameOver: true
+    });
     let allWords = this.state.allWords;
     let currentWord = allWords.pop();
-    this.setState({allWords: allWords, currentWord: currentWord});
+    this.setState({
+      allWords: allWords, 
+      currentWord: currentWord
+    });
   };
 
   handleLoss = () => {
     console.log("You lose.")
-    let allWords = this.state.allWords;
-    let currentWord = allWords.pop();
-    this.setState({allWords: allWords, currentWord: currentWord});
   };
 
   handleWin = () =>  {
