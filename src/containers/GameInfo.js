@@ -5,7 +5,7 @@ class GameInfo extends React.Component {
   render() {
 
     return (
-      <h1>GameInfo</h1>
+      <h1>Last Words</h1>
     );
   };
 };

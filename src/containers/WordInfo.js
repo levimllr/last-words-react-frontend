@@ -113,7 +113,6 @@ class WordInfo extends React.Component {
 
     return (
       <div className="WordInfo">
-        <h1>WordInfo</h1>
         <Hangman misses={this.state.misses.length} />
         <WordScreen status={wordScreen} />
         <Stat statName={"Hits"} condition={true} status={hitsDisplay} />

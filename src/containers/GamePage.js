@@ -7,8 +7,10 @@ import WordInfo from "./WordInfo";
 const domain = 'http://localhost:3000';
 // const domain = 'https://last-words-on-rails.herokuapp.com';
 
+let gamesResource = '/games';
 let wordResource = '/words/random';
 let scoreResource = '/games/high_scores';
+let gamesUrl = domain + gamesResource;
 let wordUrl = domain + wordResource;
 let scoreUrl = domain  + scoreResource;
 
@@ -18,7 +20,21 @@ class GamePage extends React.Component {
     gameWords: [],
     currentWord: {},
     highScores: [],
-    gameOver: true
+    gameOver: true,
+    gameId: null,
+    username: "",
+    totalScore: 0
+  };
+
+  componentDidMount() {
+    this.fetchAll();
+  };
+
+  componentDidUpdate() {
+    if (this.state.gameOver === true) {
+      this.fetchAll();
+      this.setState({gameOver: false});
+    };
   };
 
   fetchAll() {
@@ -30,16 +46,58 @@ class GamePage extends React.Component {
       .then(json => this.setState({highScores: json}));
   };
 
-  componentDidMount() {
-    this.fetchAll();
+  postNewGame() {
+    let data = {
+      username: "AAA",
+      total_score: this.state.totalScore
+    };
+    fetch(gamesUrl, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(
+        response => response.json()
+    ).then(
+        json => this.setState({
+          gameId: json.id,
+          username: json.username
+        })
+    );
   };
 
-  componentDidUpdate() {
-    if (this.state.gameOver === true) {
-      console.log("Fetching!!");
-      this.fetchAll();
-      this.setState({gameOver: false});
-    };
+  updateGame(gameWord) {
+    // console.log(gameWord);
+    let gameWordResource = `/games/${this.state.gameId}/game_words`;
+    let url = domain + gameWordResource;
+    fetch(url, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(gameWord)
+    })
+    .then(response => response.json())
+    .then(json => {
+      gameWord.score = json.score;
+      let totalScore = this.state.totalScore + gameWord.score;
+      this.setState({totalScore: totalScore});
+    })
+    .then(() => {
+      let gameWords = this.state.gameWords;
+      gameWords.push(gameWord);
+
+      let allWords = this.state.allWords;
+      let currentWord = allWords.pop();
+      this.setState({
+        allWords: allWords, 
+        gameWords: gameWords, 
+        currentWord: currentWord
+      });
+    });
   };
 
   showScores =  () => console.log("HIGH SCORES!!!");
@@ -50,6 +108,7 @@ class GamePage extends React.Component {
     });
     let allWords = this.state.allWords;
     let currentWord = allWords.pop();
+    this.postNewGame();
     this.setState({
       allWords: allWords, 
       currentWord: currentWord
@@ -70,22 +129,23 @@ class GamePage extends React.Component {
     let wordScore = this.calculateScore(this.state.currentWord, misses);
     console.log(`Score: ${wordScore}`);
     let gameWord = {
-      game_id: null,
+      game_id: this.state.gameId,
       word_id: this.state.currentWord.id,
       word: this.state.currentWord.name,
       misses: misses.join(""),
-      win: true,
-      score: wordScore
+      win: true
     };
-    let gameWords = this.state.gameWords;
-    gameWords.push(gameWord);
-    let allWords = this.state.allWords;
-    let currentWord = allWords.pop();
-    this.setState({
-      allWords: allWords, 
-      gameWords: gameWords, 
-      currentWord: currentWord
-    });
+    this.updateGame(gameWord);
+
+    // let allWords = this.state.allWords;
+    // let currentWord = allWords.pop();
+    // let totalScore = this.state.totalScore + wordScore;
+    // this.setState({
+    //   allWords: allWords, 
+    //   gameWords: gameWords, 
+    //   currentWord: currentWord,
+    //   totalScore: totalScore
+    // });
   };
 
   render() {
