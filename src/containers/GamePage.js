@@ -4,7 +4,7 @@ import Definition from "../components/Definition";
 import GameInfo from "./GameInfo";
 import WordInfo from "./WordInfo";
 
-const domain = 'http://localhost:3000';
+const domain = 'http://localhost:3001';
 // const domain = 'https://last-words-on-rails.herokuapp.com';
 
 let gamesResource = '/games';
@@ -85,6 +85,7 @@ class GamePage extends React.Component {
       gameWord.score = json.score;
       let totalScore = this.state.totalScore + gameWord.score;
       this.setState({totalScore: totalScore});
+      console.log(`Total Score: ${this.state.totalScore}`);
     })
     .then(() => {
       let gameWords = this.state.gameWords;
@@ -104,7 +105,8 @@ class GamePage extends React.Component {
 
   newGame = () => {
     this.setState({
-      gameOver: true
+      gameOver: true,
+      gameWords: []
     });
     let allWords = this.state.allWords;
     let currentWord = allWords.pop();
@@ -125,9 +127,8 @@ class GamePage extends React.Component {
   };
 
   handleWin = (misses) =>  {
-    console.log("You win!");
     let wordScore = this.calculateScore(this.state.currentWord, misses);
-    console.log(`Score: ${wordScore}`);
+    console.log(`Word Score: ${wordScore}`);
     let gameWord = {
       game_id: this.state.gameId,
       word_id: this.state.currentWord.id,
@@ -155,7 +156,7 @@ class GamePage extends React.Component {
     return (
       <div className="GamePage">
         <div>
-          <GameInfo/>
+          <GameInfo totalScore={this.state.totalScore} gameWords={this.state.gameWords} />
           <Definition text={definition}/>
           <Button btnTxt={"High Scores"} clickAction={this.showScores}/>
           <Button btnTxt={"New Game"} clickAction={this.newGame}/>

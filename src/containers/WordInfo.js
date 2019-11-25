@@ -87,6 +87,7 @@ class WordInfo extends React.Component {
     };
     if (misses.length === 6) {
       window.removeEventListener('keypress', this.handleAttempt);
+      this.setState({wordScreen: this.state.wordArray});
       return;
     };
   };
