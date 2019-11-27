@@ -9,7 +9,7 @@ class GameInfo extends React.Component {
 
   renderGameWords() {
     if (this.props.gameWords.length === 0) {
-      return (<br></br>)
+      return (Array(5).fill([<br></br>]))
     } else {
       return this.props.gameWords.map((gameWord) => 
         <Word key={gameWord.word} name={gameWord.word} misses={gameWord.misses} />

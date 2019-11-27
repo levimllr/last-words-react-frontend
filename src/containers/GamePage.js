@@ -154,14 +154,14 @@ class GamePage extends React.Component {
     let definition = Object.keys(this.state.currentWord).length === 0 ? <br></br> : (this.state.currentWord.major_class + "  " + this.state.currentWord.definition);
 
     return (
-      <div className="GamePage">
-        <div>
+      <div className="row">
+        <div className={"column column-left"}>
           <GameInfo totalScore={this.state.totalScore} gameWords={this.state.gameWords} />
           <Definition text={definition}/>
           <Button btnTxt={"High Scores"} clickAction={this.showScores}/>
           <Button btnTxt={"New Game"} clickAction={this.newGame}/>
         </div>
-        <div>
+        <div className={"column column-right"}>
           <WordInfo word={this.state.currentWord} handleLoss={this.handleLoss} handleWin={this.handleWin} />
         </div>
       </div>

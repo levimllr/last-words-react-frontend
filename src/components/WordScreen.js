@@ -5,7 +5,7 @@ const WordScreen  = props => {
   return (
     <div>
       <h2>Word</h2>
-      <p>{props.status}</p>
+      <p className={"field"}>{props.status}</p>
     </div>
   );
 };

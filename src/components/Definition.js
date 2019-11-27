@@ -4,8 +4,8 @@ const Definition  = props => {
 
   return (
     <div>
-      <h3>Definition</h3>
-      <p>{props.text}</p>
+      <h2>Definition</h2>
+      <p className={"field definitionField"}>{props.text}</p>
     </div>
   );
 };

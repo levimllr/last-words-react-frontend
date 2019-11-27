@@ -4,7 +4,7 @@ const TotalScore  = props => {
 
   return (
     <div>
-      <h2>Total Score: {props.totalScore}</h2>
+      <h3>Total Score: {props.totalScore}</h3>
     </div>
   );
 };

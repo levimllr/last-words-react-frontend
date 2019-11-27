@@ -3,9 +3,9 @@ import React from "react";
 const Stat  = props => {
 
   return (
-    <div>
-      <h2>{props.statName}</h2>
-      <p>{props.status}</p>
+    <div className={"preField"}>
+      <h3>{props.statName}</h3>
+      <p className={"field"}>{props.status}</p>
     </div>
   );
 };
