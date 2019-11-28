@@ -11,6 +11,10 @@ ul {
   list-style: decimal;
 }
 
+ol {
+  font-family: monospace;
+}
+
 h2 {
   margin: 0em, .5em;
 }

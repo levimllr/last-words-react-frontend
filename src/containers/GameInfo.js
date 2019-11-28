@@ -8,13 +8,23 @@ class GameInfo extends React.Component {
   };
 
   renderGameWords() {
+    let numberOfWords = 7;
+    let wordArray;
     if (this.props.gameWords.length === 0) {
-      return (Array(5).fill([<br></br>]))
+      wordArray = Array(numberOfWords).fill([<br></br>]);
     } else {
-      return this.props.gameWords.map((gameWord) => 
-        <Word key={gameWord.word} name={gameWord.word} misses={gameWord.misses} />
-      );
+      wordArray = this.props.gameWords.map((gameWord) => 
+        <Word key={gameWord.word} name={gameWord.word} misses={gameWord.misses} />);
+      if (wordArray.length < numberOfWords) {
+        let blank = 1;
+        while (wordArray.length < numberOfWords) {
+        wordArray.push(<br key={`blank-${blank}`}></br>);
+          blank +=1 ;
+        }; 
+      };
     };
+    console.log(wordArray);
+    return wordArray;
   };
 
   render() {
