@@ -27,18 +27,23 @@ class NewGame extends React.Component {
   };
 
   handleKeyPress = (event) => {
-    console.log(event);
     let char = event.key.toLowerCase();
     let userNameArray = this.state.userNameArray;
     let replaceIndex = userNameArray.indexOf("_");
-    if (event.keyCode == 13) {
+    if (event.keyCode === 13) {
         return
-    } else if (event.keyCode == 8) {
-      userNameArray[replaceIndex - 1] = "_";
+    } else if (event.keyCode === 8) {
+      console.log("Backspace!");
+      if (replaceIndex === -1) {
+        userNameArray[2] = "_";
+      } else {
+        userNameArray[replaceIndex - 1] = "_";
+      };
     } else if (event.keyCode >= 65 && event.keyCode <= 90) {
       userNameArray[replaceIndex] = char.toUpperCase();
     };
     this.setState({userNameArray: userNameArray});
+    // debugger;
     if (userNameArray.includes("_") === false) {
       window.removeEventListener("keydown", this.handleKeyPress);
       this.props.handleNewPlayer(userNameArray);
