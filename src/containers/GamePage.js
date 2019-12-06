@@ -40,10 +40,30 @@ class GamePage extends React.Component {
     };
   };
 
-  showNewGame() {
-    this.setState({
-      showNewGame: true
-    });
+  showModal = (event) => {
+    console.log("Show modal!");
+    if (event.target.innerText === "New Game") {
+      this.setState({
+        showNewGame: true
+      });
+    } else if (event.target.innerText === "High Scores") {
+      this.setState({
+        showHighScores: true
+      });
+    };
+  };
+
+  modalOnClick = () => {
+    console.log("Modal click!");
+    if (this.state.showNewGame === true) {
+      this.setState({
+        showNewGame: false
+      });
+    } else if (this.state.showHighScores === true) {
+      this.setState({
+        showHighScores: false
+      });
+    };
   };
 
   fetchAll() {
@@ -57,7 +77,7 @@ class GamePage extends React.Component {
 
   postNewGame() {
     let data = {
-      username: "AAA",
+      username: this.state.username,
       total_score: this.state.totalScore
     };
     fetch(gamesUrl, {
@@ -112,14 +132,13 @@ class GamePage extends React.Component {
 
   showScores =  () => console.log("HIGH SCORES!!!");
 
-  newGame = () => {
+  newGame = (userNameArray) => {
     this.setState({
-      showNewGame: true
-    });
-    this.setState({
+      showNewGame: false,
       gameOver: true,
       gameWords: [],
-      totalScore: 0
+      totalScore: 0,
+      username: userNameArray.join("")
     });
     let allWords = this.state.allWords;
     let currentWord = allWords.pop();
@@ -171,13 +190,13 @@ class GamePage extends React.Component {
         <div className={"column column-left"}>
           <GameInfo totalScore={this.state.totalScore} gameWords={this.state.gameWords} />
           <Definition text={definition}/>
-          <Button btnTxt={"High Scores"} clickAction={this.showScores}/>
-          <Button btnTxt={"New Game"} clickAction={this.newGame}/>
+          <Button btnTxt={"High Scores"} clickAction={this.showModal} />
+          <Button btnTxt={"New Game"} clickAction={this.showModal}/>
         </div>
         <div className={"column column-right"}>
           <WordInfo word={this.state.currentWord} handleLoss={this.handleLoss} handleWin={this.handleWin} />
         </div>
-        <NewGame show={this.state.showNewGame} />
+        {this.state.showNewGame ? <NewGame show={this.state.showNewGame} handleNewPlayer={this.newGame} modalOnClick={this.modalOnClick} /> : "" }
       </div>
     );
   };
