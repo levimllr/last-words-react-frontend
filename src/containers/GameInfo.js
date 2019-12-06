@@ -23,8 +23,17 @@ class GameInfo extends React.Component {
         }; 
       };
     };
-    console.log(wordArray);
-    return wordArray;
+    return wordArray.slice(-7);
+  };
+
+  listStart() {
+    let startNumber;
+    if (this.props.gameWords.length <= 7) {
+      startNumber = 1;
+    } else {
+      startNumber = this.props.gameWords.length - 7;
+    };
+    return startNumber;
   };
 
   render() {
@@ -32,7 +41,7 @@ class GameInfo extends React.Component {
     return (
       <div>
         <h1>Last Words</h1>
-        <ol>
+        <ol start={this.listStart()}>
           {this.renderGameWords()}
         </ol>
         <TotalScore totalScore={this.props.totalScore} />

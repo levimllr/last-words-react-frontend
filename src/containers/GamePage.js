@@ -106,7 +106,8 @@ class GamePage extends React.Component {
   newGame = () => {
     this.setState({
       gameOver: true,
-      gameWords: []
+      gameWords: [],
+      totalScore: 0
     });
     let allWords = this.state.allWords;
     let currentWord = allWords.pop();
