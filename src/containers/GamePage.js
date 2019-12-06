@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../components/Button";
 import Definition from "../components/Definition";
 import GameInfo from "./GameInfo";
+import NewGame from "./NewGame";
 import WordInfo from "./WordInfo";
 
 const domain = 'http://localhost:3001';
@@ -16,6 +17,8 @@ let scoreUrl = domain  + scoreResource;
 
 class GamePage extends React.Component {
   state = {
+    showNewGame: false,
+    showHighScores: false,
     allWords: [],
     gameWords: [],
     currentWord: {},
@@ -35,6 +38,12 @@ class GamePage extends React.Component {
       this.fetchAll();
       this.setState({gameOver: false});
     };
+  };
+
+  showNewGame() {
+    this.setState({
+      showNewGame: true
+    });
   };
 
   fetchAll() {
@@ -105,6 +114,9 @@ class GamePage extends React.Component {
 
   newGame = () => {
     this.setState({
+      showNewGame: true
+    });
+    this.setState({
       gameOver: true,
       gameWords: [],
       totalScore: 0
@@ -165,6 +177,7 @@ class GamePage extends React.Component {
         <div className={"column column-right"}>
           <WordInfo word={this.state.currentWord} handleLoss={this.handleLoss} handleWin={this.handleWin} />
         </div>
+        <NewGame show={this.state.showNewGame} />
       </div>
     );
   };
