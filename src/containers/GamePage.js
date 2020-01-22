@@ -4,6 +4,7 @@ import Definition from "../components/Definition";
 import GameInfo from "./GameInfo";
 import NewGame from "./NewGame";
 import WordInfo from "./WordInfo";
+import HighScores from "./HighScores";
 
 const domain = 'http://localhost:3001';
 // const domain = 'https://last-words-on-rails.herokuapp.com';
@@ -176,16 +177,6 @@ class GamePage extends React.Component {
       win: true
     };
     this.updateGame(gameWord);
-
-    // let allWords = this.state.allWords;
-    // let currentWord = allWords.pop();
-    // let totalScore = this.state.totalScore + wordScore;
-    // this.setState({
-    //   allWords: allWords, 
-    //   gameWords: gameWords, 
-    //   currentWord: currentWord,
-    //   totalScore: totalScore
-    // });
   };
 
   render() {
@@ -209,6 +200,7 @@ class GamePage extends React.Component {
           />
         </div>
         {this.state.showNewGame ? <NewGame show={this.state.showNewGame} handleNewPlayer={this.newGame} modalOnClick={this.modalOnClick} /> : "" }
+        {this.state.showHighScores ? <HighScores show={this.state.showHighScores} modalOnClick={this.modalOnClick} /> : "" }
       </div>
     );
   };
