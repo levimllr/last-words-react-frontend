@@ -3,15 +3,12 @@ import TotalScore from "../components/TotalScore";
 import Word from '../components/Word';
 
 class GameInfo extends React.Component {
-  constructor(props) {
-    super(props);
-  };
 
   renderGameWords() {
     let numberOfWords = 7;
     let wordArray;
     if (this.props.gameWords.length === 0) {
-      wordArray = Array(numberOfWords).fill([<br></br>]);
+      wordArray = Array(numberOfWords).fill([<br key={`blank`}></br>]);
     } else {
       wordArray = this.props.gameWords.map((gameWord) => 
         <Word key={gameWord.word} name={gameWord.word} misses={gameWord.misses} />);

@@ -1,17 +1,14 @@
 import React from "react";
 
-const userNameBlank = ["_", "_", "_"];
-
 class NewGame extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    userNameArray: ["_", "_", "_"]
   };
 
-  state = {
-    userNameArray: userNameBlank
-  };
+  
 
   componentDidMount() {
+    console.log("New Game Modal mounted")
     window.addEventListener("click", this.handleClickOutside);
     window.addEventListener("keydown", this.handleKeyPress);
   };

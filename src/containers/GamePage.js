@@ -44,7 +44,10 @@ class GamePage extends React.Component {
     console.log("Show modal!");
     if (event.target.innerText === "New Game") {
       this.setState({
-        showNewGame: true
+        showNewGame: true,
+        gameId: null,
+        username: "",
+        totalScore: 0
       });
     } else if (event.target.innerText === "High Scores") {
       this.setState({
