@@ -200,7 +200,7 @@ class GamePage extends React.Component {
           />
         </div>
         {this.state.showNewGame ? <NewGame show={this.state.showNewGame} handleNewPlayer={this.newGame} modalOnClick={this.modalOnClick} /> : "" }
-        {this.state.showHighScores ? <HighScores show={this.state.showHighScores} modalOnClick={this.modalOnClick} /> : "" }
+        {this.state.showHighScores ? <HighScores highScores={this.state.highScores} show={this.state.showHighScores} modalOnClick={this.modalOnClick} /> : "" }
       </div>
     );
   };
