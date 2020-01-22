@@ -26,7 +26,8 @@ class GamePage extends React.Component {
     gameOver: true,
     gameId: null,
     username: "",
-    totalScore: 0
+    totalScore: 0,
+    listening: false
   };
 
   componentDidMount() {
@@ -42,6 +43,7 @@ class GamePage extends React.Component {
 
   showModal = (event) => {
     console.log("Show modal!");
+    this.setState({listening: false});
     if (event.target.innerText === "New Game") {
       this.setState({
         showNewGame: true,
@@ -78,9 +80,9 @@ class GamePage extends React.Component {
       .then(json => this.setState({highScores: json}));
   };
 
-  postNewGame() {
+  postNewGame(username) {
     let data = {
-      username: this.state.username,
+      username: username,
       total_score: this.state.totalScore
     };
     fetch(gamesUrl, {
@@ -136,19 +138,21 @@ class GamePage extends React.Component {
   showScores =  () => console.log("HIGH SCORES!!!");
 
   newGame = (userNameArray) => {
+    const username = userNameArray.join("");
     this.setState({
       showNewGame: false,
       gameOver: true,
       gameWords: [],
       totalScore: 0,
-      username: userNameArray.join("")
+      username: username
     });
     let allWords = this.state.allWords;
     let currentWord = allWords.pop();
-    this.postNewGame();
+    this.postNewGame(username);
     this.setState({
       allWords: allWords, 
-      currentWord: currentWord
+      currentWord: currentWord,
+      listening: true
     });
   };
 
@@ -197,7 +201,12 @@ class GamePage extends React.Component {
           <Button btnTxt={"New Game"} clickAction={this.showModal}/>
         </div>
         <div className={"column column-right"}>
-          <WordInfo word={this.state.currentWord} handleLoss={this.handleLoss} handleWin={this.handleWin} />
+          <WordInfo 
+            word={this.state.currentWord} 
+            handleLoss={this.handleLoss} 
+            handleWin={this.handleWin}
+            listening={this.state.listening}
+          />
         </div>
         {this.state.showNewGame ? <NewGame show={this.state.showNewGame} handleNewPlayer={this.newGame} modalOnClick={this.modalOnClick} /> : "" }
       </div>

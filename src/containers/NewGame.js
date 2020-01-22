@@ -5,16 +5,20 @@ class NewGame extends React.Component {
     userNameArray: ["_", "_", "_"]
   };
 
-  
-
   componentDidMount() {
-    console.log("New Game Modal mounted")
     window.addEventListener("click", this.handleClickOutside);
     window.addEventListener("keydown", this.handleKeyPress);
   };
 
+  componentDidUpdate() {
+    const newGameButton = document.getElementById("newGameButton");
+    if (newGameButton) {
+      newGameButton.focus();
+    };
+  };
+
   componentWillUnmount() {
-    
+    window.removeEventListener("click", this.handleClickOutside);
   };
 
   handleClickOutside = (event) => {
@@ -30,7 +34,6 @@ class NewGame extends React.Component {
     if (event.keyCode === 13) {
         return
     } else if (event.keyCode === 8) {
-      console.log("Backspace!");
       if (replaceIndex === -1) {
         userNameArray[2] = "_";
       } else {
@@ -40,10 +43,12 @@ class NewGame extends React.Component {
       userNameArray[replaceIndex] = char.toUpperCase();
     };
     this.setState({userNameArray: userNameArray});
-    // debugger;
-    if (userNameArray.includes("_") === false) {
+  };
+
+  handleOnClick = (event) => {
+    if (!this.state.userNameArray.includes("_")) {
       window.removeEventListener("keydown", this.handleKeyPress);
-      this.props.handleNewPlayer(userNameArray);
+      this.props.handleNewPlayer(this.state.userNameArray);
     };
   };
 
@@ -57,7 +62,7 @@ class NewGame extends React.Component {
             <h1 className="modal-header" id="gameModalHeader">
               Any last words, {this.state.userNameArray.join(" ")} ?
             </h1>
-            <h3>Press any letter on your keyboard.</h3>
+            {this.state.userNameArray.includes("_") ? <h3>Press any letter on your keyboard.</h3> : <button id="newGameButton" onClick={this.handleOnClick}>Face your fate.</button>}
           </div>
         </div>
       );

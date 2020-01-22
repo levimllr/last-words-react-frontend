@@ -36,7 +36,11 @@ class WordInfo extends React.Component {
     if (Object.keys(this.props.word).length !== 0 && this.props.word.name !== this.state.wordArray.join("") ) {
       let wordArray = this.props.word.name.split("");
       let wordScreen = createWordScreen(wordArray);
-      window.addEventListener('keypress', this.handleAttempt);
+      if (this.props.listening) {
+         window.addEventListener('keypress', this.handleAttempt);
+      } else {
+         window.removeEventListener('keypress', this.handleAttempt);
+      };
       this.setState({
         wordScreen: wordScreen, 
         wordArray: wordArray,
@@ -54,6 +58,8 @@ class WordInfo extends React.Component {
     if (event.keyCode === 13) {
       return
     };
+
+    console.log(event.keyCode);
 
     if (/[a-zA-Z]/.test(char) && this.state.wordDone === false) {
       if (this.state.wordArray.includes(char) ) {
