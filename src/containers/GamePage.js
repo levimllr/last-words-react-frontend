@@ -42,6 +42,11 @@ class GamePage extends React.Component {
     };
   };
 
+  removeTransition = (event) =>  {
+    if (event.propertyName !== 'transform') return;
+    event.target.classList.remove('missing');
+  };
+
   showModal = (event) => {
     console.log("Show modal!");
     this.setState({listening: false});
@@ -220,9 +225,10 @@ class GamePage extends React.Component {
             handleLoss={this.handleLoss} 
             handleWin={this.handleWin}
             listening={this.state.listening}
+            removeTransition={this.removeTransition}
           />
         </div>
-        {this.state.showNewGame ? <NewGame show={this.state.showNewGame} handleNewPlayer={this.newGame} modalOnClick={this.modalOnClick} /> : "" }
+        {this.state.showNewGame ? <NewGame show={this.state.showNewGame} handleNewPlayer={this.newGame} modalOnClick={this.modalOnClick} removeTransition={this.removeTransition} /> : "" }
         {this.state.showHighScores ? <HighScores highScores={this.state.highScores} show={this.state.showHighScores} modalOnClick={this.modalOnClick} /> : "" }
       </div>
     );

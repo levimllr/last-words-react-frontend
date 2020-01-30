@@ -1,15 +1,22 @@
 import React from "react";
 
-const Hangman = props => {
+class Hangman extends React.Component {
 
-  let imagePath = `/img/Hangman-${props.misses}.png`;
-  let altText = `Hangman with ${props.misses} of 6 misses`;
+  componentDidMount(){
+    document.getElementById("scaffoldImg")
+      .addEventListener('transitionend', this.props.removeTransition);
+  };
 
-  return (
-    <div>
-      <img src={imagePath} alt={altText}></img>
-    </div>
-  );
+  imagePath = `/img/Hangman-${this.props.misses}.png`;
+  altText = `Hangman with ${this.props.misses} of 6 misses`;
+
+  render() {
+    return (
+      <div>
+        <img id="scaffoldImg" src={this.imagePath} alt={this.altText}></img>
+      </div>
+    );
+  };
 };
 
 export default Hangman;

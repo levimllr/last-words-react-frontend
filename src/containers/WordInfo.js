@@ -84,6 +84,7 @@ class WordInfo extends React.Component {
   };
 
   handleMiss(char) {
+    document.getElementById("scaffoldImg").classList.add('missing');
     let misses = this.state.misses;
     if (misses.includes(char)) {
       return
@@ -121,7 +122,7 @@ class WordInfo extends React.Component {
 
     return (
       <div className="WordInfo">
-        <Hangman misses={this.state.misses.length} />
+        <Hangman misses={this.state.misses.length} removeTransition={this.props.removeTransition} />
         <WordScreen status={wordScreen} />
         <Stat statName={"Hits"} condition={true} status={hitsDisplay} />
         <Stat statName={"Misses"} condition={false} status={missesDisplay} />

@@ -8,6 +8,8 @@ class NewGame extends React.Component {
   componentDidMount() {
     window.addEventListener("click", this.handleClickOutside);
     window.addEventListener("keydown", this.handleKeyPress);
+    document.getElementById("gameModalHeader")
+      .addEventListener('transitionend', this.props.removeTransition);
   };
 
   componentDidUpdate() {
@@ -28,6 +30,7 @@ class NewGame extends React.Component {
   };
 
   handleKeyPress = (event) => {
+    document.getElementById("gameModalHeader").classList.add('missing');
     let char = event.key.toLowerCase();
     let userNameArray = this.state.userNameArray;
     let replaceIndex = userNameArray.indexOf("_");
