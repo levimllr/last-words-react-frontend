@@ -103,7 +103,7 @@ class GamePage extends React.Component {
     );
   };
 
-  updateGame(gameWord) {
+  postGameWord(gameWord) {
     // console.log(gameWord);
     let gameWordResource = `/games/${this.state.gameId}/game_words`;
     let url = domain + gameWordResource;
@@ -120,7 +120,6 @@ class GamePage extends React.Component {
       gameWord.score = json.score;
       let totalScore = this.state.totalScore + gameWord.score;
       this.setState({totalScore: totalScore});
-      console.log(`Total Score: ${this.state.totalScore}`);
     })
     .then(() => {
       let gameWords = this.state.gameWords;
@@ -133,6 +132,27 @@ class GamePage extends React.Component {
         gameWords: gameWords, 
         currentWord: currentWord
       });
+
+      this.updateGame();
+    });
+  };
+
+  updateGame() {
+    let url = domain + `/games/${this.state.gameId}`;
+    let data = {
+        game: {
+          id: this.state.gameId,
+          username: this.state.username,
+          total_score: this.state.totalScore
+        }
+    };
+    fetch(url, {
+        method: 'PATCH',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
     });
   };
 
@@ -158,7 +178,10 @@ class GamePage extends React.Component {
   };
 
   handleLoss = () => {
-    console.log("You lose.")
+    console.log("You lose.");
+    fetch(scoreUrl)
+      .then(resp => resp.json())
+      .then(json => this.setState({highScores: json}));
   };
 
   calculateScore = (word, misses) => {
@@ -176,7 +199,7 @@ class GamePage extends React.Component {
       misses: misses.join(""),
       win: true
     };
-    this.updateGame(gameWord);
+    this.postGameWord(gameWord);
   };
 
   render() {
