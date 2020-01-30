@@ -28,7 +28,8 @@ class GamePage extends React.Component {
     gameId: null,
     username: "",
     totalScore: 0,
-    listening: false
+    listening: false,
+    highScore: false
   };
 
   componentDidMount() {
@@ -170,7 +171,8 @@ class GamePage extends React.Component {
       gameOver: true,
       gameWords: [],
       totalScore: 0,
-      username: username
+      username: username,
+      highScore: false
     });
     let allWords = this.state.allWords;
     let currentWord = allWords.pop();
@@ -186,7 +188,13 @@ class GamePage extends React.Component {
     console.log("You lose.");
     fetch(scoreUrl)
       .then(resp => resp.json())
-      .then(json => this.setState({highScores: json}));
+      .then(json => this.setState({highScores: json}))
+      .then(() => {
+        const lowestHighScore = this.state.highScores[this.state.highScores.length - 1].total_score
+        if (this.state.totalScore >= lowestHighScore) {
+          this.setState({highScore: true});
+        };
+      });
   };
 
   calculateScore = (word, misses) => {
@@ -214,7 +222,11 @@ class GamePage extends React.Component {
     return (
       <div className="row">
         <div className={"column column-left"}>
-          <GameInfo totalScore={this.state.totalScore} gameWords={this.state.gameWords} />
+          <GameInfo 
+            totalScore={this.state.totalScore} 
+            gameWords={this.state.gameWords} 
+            highScore={this.state.highScore}
+          />
           <Definition text={definition}/>
           <Button btnTxt={"High Scores"} clickAction={this.showModal} />
           <Button btnTxt={"New Game"} clickAction={this.showModal}/>

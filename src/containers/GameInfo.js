@@ -37,7 +37,7 @@ class GameInfo extends React.Component {
 
     return (
       <div>
-        <h1>Last Words</h1>
+        <h1>{this.props.highScore ? "High Score!" : "Last Words"}</h1>
         <ol start={this.listStart()}>
           {this.renderGameWords()}
         </ol>

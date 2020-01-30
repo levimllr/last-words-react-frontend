@@ -7,13 +7,14 @@ class Hangman extends React.Component {
       .addEventListener('transitionend', this.props.removeTransition);
   };
 
-  imagePath = `/img/Hangman-${this.props.misses}.png`;
-  altText = `Hangman with ${this.props.misses} of 6 misses`;
-
   render() {
+
+    const imagePath = `/img/Hangman-${this.props.misses}.png`;
+    const altText = `Hangman with ${this.props.misses} of 6 misses`;
+
     return (
       <div>
-        <img id="scaffoldImg" src={this.imagePath} alt={this.altText}></img>
+        <img id="scaffoldImg" src={imagePath} alt={altText}></img>
       </div>
     );
   };
