@@ -9,7 +9,7 @@ class Hangman extends React.Component {
 
   render() {
 
-    const imagePath = `/public/img/Hangman-${this.props.misses}.png`;
+    const imagePath = `/last-words-react-frontend/public/img/Hangman-${this.props.misses}.png`;
     const altText = `Hangman with ${this.props.misses} of 6 misses`;
 
     return (
