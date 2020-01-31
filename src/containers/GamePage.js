@@ -6,8 +6,8 @@ import NewGame from "./NewGame";
 import WordInfo from "./WordInfo";
 import HighScores from "./HighScores";
 
-const domain = 'http://localhost:3001';
-// const domain = 'https://last-words-on-rails.herokuapp.com';
+// const domain = 'http://localhost:3001';
+const domain = 'https://last-words-on-rails.herokuapp.com';
 
 let gamesResource = '/games';
 let wordResource = '/words/random';
