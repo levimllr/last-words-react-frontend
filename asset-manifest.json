@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/last-words-react-frontend/static/css/main.90d29ccc.chunk.css",
-    "main.js": "/last-words-react-frontend/static/js/main.da0fe84e.chunk.js",
-    "main.js.map": "/last-words-react-frontend/static/js/main.da0fe84e.chunk.js.map",
+    "main.js": "/last-words-react-frontend/static/js/main.881c6766.chunk.js",
+    "main.js.map": "/last-words-react-frontend/static/js/main.881c6766.chunk.js.map",
     "runtime-main.js": "/last-words-react-frontend/static/js/runtime-main.b7475ca2.js",
     "runtime-main.js.map": "/last-words-react-frontend/static/js/runtime-main.b7475ca2.js.map",
     "static/js/2.e7a0a151.chunk.js": "/last-words-react-frontend/static/js/2.e7a0a151.chunk.js",
     "static/js/2.e7a0a151.chunk.js.map": "/last-words-react-frontend/static/js/2.e7a0a151.chunk.js.map",
     "index.html": "/last-words-react-frontend/index.html",
-    "precache-manifest.9eeafc0ff03ad2a642c8225777c836e2.js": "/last-words-react-frontend/precache-manifest.9eeafc0ff03ad2a642c8225777c836e2.js",
+    "precache-manifest.1c83ab12747cbb179e427d32b72d6cb5.js": "/last-words-react-frontend/precache-manifest.1c83ab12747cbb179e427d32b72d6cb5.js",
     "service-worker.js": "/last-words-react-frontend/service-worker.js",
     "static/css/main.90d29ccc.chunk.css.map": "/last-words-react-frontend/static/css/main.90d29ccc.chunk.css.map"
   },
@@ -16,6 +16,6 @@
     "static/js/runtime-main.b7475ca2.js",
     "static/js/2.e7a0a151.chunk.js",
     "static/css/main.90d29ccc.chunk.css",
-    "static/js/main.da0fe84e.chunk.js"
+    "static/js/main.881c6766.chunk.js"
   ]
 }

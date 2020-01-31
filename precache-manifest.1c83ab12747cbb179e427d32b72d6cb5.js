@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8634ea3f865556609c83cc3613305c07",
+    "revision": "fbf69fb30cff938a001532fc7aae8362",
     "url": "/last-words-react-frontend/index.html"
   },
   {
-    "revision": "d5015c9a024870c494cc",
+    "revision": "76e655cb92abd0bc4bbe",
     "url": "/last-words-react-frontend/static/css/main.90d29ccc.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/last-words-react-frontend/static/js/2.e7a0a151.chunk.js"
   },
   {
-    "revision": "d5015c9a024870c494cc",
-    "url": "/last-words-react-frontend/static/js/main.da0fe84e.chunk.js"
+    "revision": "76e655cb92abd0bc4bbe",
+    "url": "/last-words-react-frontend/static/js/main.881c6766.chunk.js"
   },
   {
     "revision": "c9c57384f09dd0976486",
